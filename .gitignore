@@ -30,6 +30,8 @@ env/
 
 # 🔐 Environment variable file (sensitive credentials)
 .env
+.env.local
+.env.*.local
 
 # 📦 Application state data (used by JSONStorage)
 tasks.json
@@ -39,3 +41,32 @@ tasks.json
 
 # 🕒 Temporary script used for testing cron-based reminders
 run_reminders.sh
+
+# 🔒 Database files (local/testing - NEVER commit production databases)
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# 🔑 Private keys and certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# 🍃 IDE-specific files
+.idea/
+*.swp
+*.swo
+*~
+
+# 📊 Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# 🏗️ Build artifacts
+build/
+dist/
