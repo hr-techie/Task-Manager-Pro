@@ -3,11 +3,13 @@
 ## Getting Started in 5 Minutes
 
 ### 1. Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 2. Start the Development Server
+
 ```bash
 uvicorn task_manager_pro.api.main:app --reload
 ```
@@ -15,6 +17,7 @@ uvicorn task_manager_pro.api.main:app --reload
 Server running at: http://localhost:8000
 
 ### 3. Access API Documentation
+
 - **Interactive Docs:** http://localhost:8000/docs
 - **ReDoc:** http://localhost:8000/redoc
 - **Health Check:** http://localhost:8000/health
@@ -24,6 +27,7 @@ Server running at: http://localhost:8000
 ## Common Tasks
 
 ### Register a New User
+
 ```bash
 curl -X POST http://localhost:8000/api/auth/register \
   -H "Content-Type: application/json" \
@@ -35,6 +39,7 @@ curl -X POST http://localhost:8000/api/auth/register \
 ```
 
 **Response:**
+
 ```json
 {
   "id": "550e8400-e29b-41d4-a716-446655440000",
@@ -44,6 +49,7 @@ curl -X POST http://localhost:8000/api/auth/register \
 ```
 
 ### Login
+
 ```bash
 curl -X POST http://localhost:8000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -54,6 +60,7 @@ curl -X POST http://localhost:8000/api/auth/login \
 ```
 
 **Response:**
+
 ```json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -69,6 +76,7 @@ curl -X POST http://localhost:8000/api/auth/login \
 Save the `access_token` for authenticated requests.
 
 ### Create a Task
+
 ```bash
 TOKEN="your_access_token_here"
 curl -X POST http://localhost:8000/api/tasks \
@@ -83,6 +91,7 @@ curl -X POST http://localhost:8000/api/tasks \
 ```
 
 ### List Your Tasks
+
 ```bash
 TOKEN="your_access_token_here"
 curl -X GET "http://localhost:8000/api/tasks?skip=0&limit=10" \
@@ -90,6 +99,7 @@ curl -X GET "http://localhost:8000/api/tasks?skip=0&limit=10" \
 ```
 
 ### Get a Specific Task
+
 ```bash
 TOKEN="your_access_token_here"
 TASK_ID="task_id_here"
@@ -98,6 +108,7 @@ curl -X GET http://localhost:8000/api/tasks/$TASK_ID \
 ```
 
 ### Mark Task as Completed
+
 ```bash
 TOKEN="your_access_token_here"
 TASK_ID="task_id_here"
@@ -110,6 +121,7 @@ curl -X PUT http://localhost:8000/api/tasks/$TASK_ID \
 ```
 
 ### Delete a Task
+
 ```bash
 TOKEN="your_access_token_here"
 TASK_ID="task_id_here"
@@ -118,6 +130,7 @@ curl -X DELETE http://localhost:8000/api/tasks/$TASK_ID \
 ```
 
 ### Get User Profile
+
 ```bash
 TOKEN="your_access_token_here"
 curl -X GET http://localhost:8000/api/users/me \
@@ -125,6 +138,7 @@ curl -X GET http://localhost:8000/api/users/me \
 ```
 
 ### Toggle Email Reminders
+
 ```bash
 TOKEN="your_access_token_here"
 curl -X POST http://localhost:8000/api/users/me/toggle-reminders \
@@ -136,26 +150,31 @@ curl -X POST http://localhost:8000/api/users/me/toggle-reminders \
 ## Running Tests
 
 ### All Tests
+
 ```bash
 pytest tests/
 ```
 
 ### Specific Test File
+
 ```bash
 pytest tests/test_api.py
 ```
 
 ### Specific Test
+
 ```bash
 pytest tests/test_api.py::test_create_task_authenticated
 ```
 
 ### With Coverage Report
+
 ```bash
 pytest tests/ --cov=task_manager_pro
 ```
 
 ### Verbose Output
+
 ```bash
 pytest tests/ -v -s
 ```
@@ -189,11 +208,13 @@ DEBUG=False
 ## Docker Deployment
 
 ### Build Image
+
 ```bash
 docker build -t task-manager-pro:latest .
 ```
 
 ### Run Container
+
 ```bash
 docker run -p 8000:8000 \
   -e DATABASE_URL="sqlite:///./tasks.db" \
@@ -202,6 +223,7 @@ docker run -p 8000:8000 \
 ```
 
 ### With PostgreSQL
+
 ```bash
 docker run -p 8000:8000 \
   -e DATABASE_URL="postgresql://user:password@postgres:5432/taskdb" \
@@ -214,12 +236,14 @@ docker run -p 8000:8000 \
 ## Troubleshooting
 
 ### "Address already in use" Error
+
 ```bash
 # Change port
 uvicorn task_manager_pro.api.main:app --reload --port 8001
 ```
 
 ### Database Connection Error
+
 ```bash
 # Verify DATABASE_URL environment variable
 echo $DATABASE_URL
@@ -230,6 +254,7 @@ python -c "from task_manager_pro.storage.database import init_db; init_db()"
 ```
 
 ### JWT Token Expired
+
 ```bash
 # Get new token via login endpoint
 curl -X POST http://localhost:8000/api/auth/login \
@@ -238,6 +263,7 @@ curl -X POST http://localhost:8000/api/auth/login \
 ```
 
 ### Tests Failing
+
 ```bash
 # Ensure clean database
 rm -f tasks.db
