@@ -1,8 +1,8 @@
 # 📦 Project Metadata
 [project]
 name = "task-manager-pro"  # Name of the package
-version = "0.1.0"  # Initial version
-description = "CLI-based task manager with email reminder support"  # Short project summary
+version = "0.2.0"  # Updated version with DB support
+description = "Advanced CLI-based task manager with database, security, and email reminders"  # Short project summary
 authors = [{ name = "Satvik Praveen" }]  # List of authors
 readme = "README.md"  # Markdown file used as long description on PyPI
 requires-python = ">=3.10"  # Minimum required Python version
@@ -12,9 +12,15 @@ dependencies = [
     "flask",  # Web framework (optional extension)
     "python-dotenv",  # For loading environment variables from .env
     "typing-extensions",  # For backward-compatible typing features
+    "pydantic",  # Data validation using type hints
+    "pydantic-settings",  # Pydantic settings management
+    "rich",  # For pretty-printing and enhanced terminal outputs
+    "sqlalchemy",  # SQL toolkit and ORM
+    "alembic",  # Database migration tool
+    "bcrypt",  # Password hashing library
+    "pyjwt",  # JSON Web Token library
     "pytest",  # Testing framework
-    "pydantic",  # For future data validation (optional)
-    "rich"  # For pretty-printing and enhanced terminal outputs
+    "pytest-cov",  # Coverage reporting for pytest
 ]
 
 # 🚀 CLI entry point definition

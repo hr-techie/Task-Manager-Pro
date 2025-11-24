@@ -9,14 +9,25 @@ python-dotenv      # Loads environment variables from .env files (used in email 
 # 🔠 Typing and Data Structures
 typing-extensions  # Adds backported and experimental type hints for compatibility
 
+# 🗄️ Database ORM and Migrations
+sqlalchemy         # SQL toolkit and ORM for database operations
+alembic            # Lightweight database migration tool for SQLAlchemy
+
+# 🔐 Security
+bcrypt             # Password hashing library for secure credential storage
+pyjwt              # JSON Web Token library for authentication
+
 # 🔍 Optional Advanced Type Checking
 mypy               # Static type checker for Python to catch bugs early (optional)
 
 # 🧪 Testing Framework
 pytest             # Used to write and run unit tests in /tests directory
+pytest-cov         # Coverage reporting for pytest
 
-# 📦 Optional JSON Validation
-pydantic           # Enables data validation (e.g., user/task schema enforcement)
+# 📦 Data Validation
+pydantic           # Data validation using Python type hints
+pydantic-settings  # Pydantic settings management
+email-validator    # Email validation for pydantic EmailStr type
 
 # 🌈 CLI Display Enhancements
 rich               # Adds colorized and styled CLI output (e.g., task tables, status)
