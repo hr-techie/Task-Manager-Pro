@@ -1,15 +1,14 @@
 # 📦 Project Metadata
 [project]
 name = "task-manager-pro"  # Name of the package
-version = "0.2.0"  # Updated version with DB support
-description = "Advanced CLI-based task manager with database, security, and email reminders"  # Short project summary
+version = "0.3.0"  # Updated version with REST API
+description = "Advanced task manager with REST API, database, security, and email reminders"  # Short project summary
 authors = [{ name = "Satvik Praveen" }]  # List of authors
 readme = "README.md"  # Markdown file used as long description on PyPI
 requires-python = ">=3.10"  # Minimum required Python version
 
 # 📚 Dependencies required to run the project
 dependencies = [
-    "flask",  # Web framework (optional extension)
     "python-dotenv",  # For loading environment variables from .env
     "typing-extensions",  # For backward-compatible typing features
     "pydantic",  # Data validation using type hints
@@ -19,8 +18,11 @@ dependencies = [
     "alembic",  # Database migration tool
     "bcrypt",  # Password hashing library
     "pyjwt",  # JSON Web Token library
+    "fastapi",  # Modern web framework for REST API
+    "uvicorn[standard]",  # ASGI server for FastAPI
     "pytest",  # Testing framework
     "pytest-cov",  # Coverage reporting for pytest
+    "httpx",  # HTTP client for testing
 ]
 
 # 🚀 CLI entry point definition

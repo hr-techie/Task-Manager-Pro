@@ -3,8 +3,11 @@
 # ✅ Requires Python >=3.10 (as specified in pyproject.toml)
 
 # 🧱 Core Libraries
-flask              # Enables upgrade path to a Flask-based web interface (optional)
 python-dotenv      # Loads environment variables from .env files (used in email config)
+
+# 🌐 REST API Framework
+fastapi            # Modern, fast web framework for building APIs
+uvicorn[standard]  # ASGI server for running FastAPI
 
 # 🔠 Typing and Data Structures
 typing-extensions  # Adds backported and experimental type hints for compatibility
@@ -23,6 +26,7 @@ mypy               # Static type checker for Python to catch bugs early (optiona
 # 🧪 Testing Framework
 pytest             # Used to write and run unit tests in /tests directory
 pytest-cov         # Coverage reporting for pytest
+httpx              # HTTP client for testing FastAPI endpoints
 
 # 📦 Data Validation
 pydantic           # Data validation using Python type hints
