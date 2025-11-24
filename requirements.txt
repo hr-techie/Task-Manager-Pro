@@ -26,6 +26,7 @@ mypy               # Static type checker for Python to catch bugs early (optiona
 # 🧪 Testing Framework
 pytest             # Used to write and run unit tests in /tests directory
 pytest-cov         # Coverage reporting for pytest
+pytest-asyncio     # Async test support for pytest
 httpx              # HTTP client for testing FastAPI endpoints
 
 # 📦 Data Validation

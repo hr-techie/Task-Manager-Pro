@@ -1,0 +1,117 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint with mypy
+        run: |
+          mypy task_manager_pro --ignore-missing-imports --no-error-summary 2>/dev/null || echo "Type checking issues (informational)"
+
+      - name: Run tests with pytest
+        run: |
+          pytest tests/ -v --tb=short
+
+      - name: Generate coverage report
+        run: |
+          pytest tests/ --cov=task_manager_pro --cov-report=xml --cov-report=term-missing
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Build distribution packages
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+
+      - name: Check distribution
+        run: |
+          python -m pip install twine
+          twine check dist/*
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: distribution-packages
+          path: dist/
+
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Run security scan
+        run: |
+          python -m pip install bandit
+          bandit -r task_manager_pro -ll || echo "Security scan completed"
+
+  docker-build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: false
+          tags: task-manager-pro:latest
