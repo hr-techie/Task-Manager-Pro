@@ -19,3 +19,7 @@ jobs:
         with:
           file: ./coverage.xml      
           fail_ci_if_error: false
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
